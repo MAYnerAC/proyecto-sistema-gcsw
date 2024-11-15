@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Proyecto>
+
+@{
+    ViewBag.Title = "Proyectos";
+}
+
+<h2>Proyectos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Proyecto", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Estado del Proyecto</th>
+            <th>Metodología</th>
+            <th>Usuario Creador</th>
+            <th>Nombre del Proyecto</th>
+            <th>Código del Proyecto</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Estado_Proyecto.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Metodologia.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Usuario.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.codigo_proyecto)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_inicio)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_fin)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_proyecto }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_proyecto }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_proyecto }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Elemento_Configuracion>
+
+@{
+    ViewBag.Title = "Elementos de Configuración";
+}
+
+<h2>Elementos de Configuración</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Elemento", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Fase</th>
+            <th>Proyecto</th>
+            <th>Nombre</th>
+            <th>Código</th>
+            <th>Nomenclatura</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Fase.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Proyecto.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.codigo_elemento)</td>
+                <td>@Html.DisplayFor(modelItem => item.nomenclatura)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_elemento_configuracion }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_elemento_configuracion }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_elemento_configuracion }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

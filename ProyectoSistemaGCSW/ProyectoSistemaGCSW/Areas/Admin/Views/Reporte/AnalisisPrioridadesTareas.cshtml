@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReportePrioridadesTareas>
+
+@{
+    ViewBag.Title = "Análisis de Prioridades de Tareas";
+}
+
+<h2 class="text-center mt-4">@ViewBag.Title</h2>
+
+<!-- Formulario de filtro por proyecto -->
+<form method="get" action="@Url.Action("AnalisisPrioridadesTareas")" class="form-inline mb-4">
+    <div class="form-group mr-2">
+        <label for="idProyecto" class="mr-2">Filtrar por Proyecto:</label>
+        @Html.DropDownList("idProyecto", ViewBag.Proyectos as SelectList, "Seleccione un Proyecto", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-warning text-center">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+else
+{
+    <!-- Gráfico de Prioridades -->
+    <div class="container my-4">
+        <canvas id="prioridadesTareasChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Tabla de Prioridades por Proyecto -->
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Proyecto</th>
+                    <th scope="col">Prioridad</th>
+                    <th scope="col">Total de Tareas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Proyecto</td>
+                        <td>@item.Prioridad</td>
+                        <td class="text-center">@item.TotalTareas</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('prioridadesTareasChart').getContext('2d');
+        var prioridadesTareasChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.Prioridad))),
+                datasets: [{
+                    label: 'Total de Tareas',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalTareas))),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

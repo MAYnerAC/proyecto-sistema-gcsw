@@ -1,0 +1,50 @@
+﻿@model ProyectoSistemaGCSW.Models.Version_Elemento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Version_Elemento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Elemento_Configuracion.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Elemento_Configuracion.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numero_version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero_version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_version }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

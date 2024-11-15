@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Proyecto>
+
+<style>
+    /* Contenedor principal para encapsular los estilos específicos de esta sección */
+    .project-selector-container {
+        background-color: #343a40; /* Fondo oscuro */
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: #e9ecef; /* Color claro para el texto */
+        margin: 2px 2px 0 2px;
+        padding: 2px 2px 0 2px;
+    }
+
+        /* Estilos específicos para el selector de proyectos dentro de este contenedor */
+        .project-selector-container .custom-select {
+            background-color: #495057; /* Fondo oscuro */
+            color: #e9ecef; /* Texto claro */
+            border: none;
+        }
+
+            .project-selector-container .custom-select:focus {
+                border-color: #17a2b8; /* Borde de enfoque azul claro */
+                box-shadow: none;
+            }
+
+        .project-selector-container .btn-select-project {
+            background-color: #17a2b8; /* Color azul claro para el botón */
+            border: none;
+            color: #ffffff; /* Color de texto blanco */
+        }
+
+            .project-selector-container .btn-select-project:hover {
+                background-color: #138496; /* Color de hover para el botón */
+            }
+
+        /* Ajustes específicos de la barra de navegación para la información del proyecto */
+        .project-selector-container .navbar-text {
+            font-size: 0.9rem; /* Tamaño de fuente ajustado */
+            font-weight: 500; /* Peso moderado */
+            color: #e9ecef; /* Texto claro */
+        }
+
+        .project-selector-container .badge-light {
+            background-color: #495057; /* Fondo oscuro */
+            color: #e9ecef; /* Texto claro */
+            padding: 0.3em 0.5em; /* Ajuste de padding */
+            border-radius: 0.2rem; /* Bordes redondeados */
+        }
+
+        /* Enlace de repositorio estilizado dentro del contenedor */
+        .project-selector-container .navbar-text a {
+            color: #17a2b8; /* Color azul claro para resaltar el enlace */
+            text-decoration: underline; /* Subrayado */
+            font-weight: bold; /* Resalta el enlace */
+        }
+</style>
+
+<div class="project-selector-container">
+    <form method="post" action="@Url.Action("Seleccionar", "Proyecto", new { area = "Workspace" })">
+        <div class="input-group mb-3">
+            <select class="custom-select" id="proyectoSelect" name="idProyecto" required>
+                <option value="" disabled selected>Seleccione un Proyecto</option>
+                @foreach (var item in Model)
+                {
+                    <option value="@item.id_proyecto">@item.nombre</option>
+                }
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-select-project" type="submit">Seleccionar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const projectInfo = document.querySelector(".project-selector-container .navbar-text");
+
+        if (projectInfo) {
+            projectInfo.addEventListener("mouseenter", function () {
+                projectInfo.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+            });
+
+            projectInfo.addEventListener("mouseleave", function () {
+                projectInfo.style.backgroundColor = "";
+            });
+        }
+    });
+</script>

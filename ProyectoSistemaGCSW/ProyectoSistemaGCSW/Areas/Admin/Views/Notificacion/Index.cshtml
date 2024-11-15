@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Notificacion>
+
+@{
+    ViewBag.Title = "Notificaciones";
+}
+
+<h2>Notificaciones</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Notificación", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Mensaje</th>
+            <th>Fecha de Envío</th>
+            <th>Leído</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Usuario.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.mensaje)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_envio)</td>
+                <td>@Html.DisplayFor(modelItem => item.leido)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_notificacion }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_notificacion }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_notificacion }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

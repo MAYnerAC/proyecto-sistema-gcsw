@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Gestión de Configuración de Software</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #sidebar {
+            min-height: 100vh;
+            background-color: #343a40;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+        }
+
+            #sidebar .nav-link {
+                color: #c5cae9;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                #sidebar .nav-link.active,
+                #sidebar .nav-link:hover {
+                    background-color: #495057;
+                    color: white;
+                }
+
+        #content {
+            margin-left: 250px;
+            margin-top: 56px; /* Ajusta según el tamaño de la barra de navegación superior */
+            padding: 20px;
+        }
+
+        .navbar-custom {
+            background-color: #343a40;
+            color: #ffffff;
+            margin-left: 250px;
+        }
+
+        .dropdown-menu {
+            background-color: #343a40;
+        }
+
+        .dropdown-item {
+            color: #ffffff;
+        }
+
+            .dropdown-item:hover {
+                background-color: #495057;
+            }
+    </style>
+</head>
+
+<body>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Usuario Logueado
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">Ver Perfil</a>
+                            <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Barra lateral -->
+    <div id="sidebar">
+        <div class="sidebar-sticky pt-3">
+            <h5 class="text-center text-white">Gestión de Software</h5>
+            <hr />
+            <ul class="nav flex-column">
+
+                <!-- Sección: Dashboard -->
+                <li class="nav-item">
+                    @Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                </li>
+
+                <!-- Sección: Configuración General -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#configuracionGeneral" role="button" aria-expanded="false" aria-controls="configuracionGeneral">
+                        Configuración General
+                    </a>
+                    <div class="collapse" id="configuracionGeneral">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Metodología", "Index", "Metodologia", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Estado Proyecto", "Index", "Estado_Proyecto", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Estado Solicitud", "Index", "Estado_Solicitud", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Estado Tarea", "Index", "Estado_Tarea", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Prioridad", "Index", "Prioridad", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Rol", "Index", "Rol", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Tipo Usuario", "Index", "Tipo_Usuario", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Gestión de Usuarios -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionUsuarios" role="button" aria-expanded="false" aria-controls="gestionUsuarios">
+                        Gestión de Usuarios
+                    </a>
+                    <div class="collapse" id="gestionUsuarios">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Usuario", "Index", "Usuario", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Notificación", "Index", "Notificacion", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Gestión de Proyectos -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionProyectos" role="button" aria-expanded="false" aria-controls="gestionProyectos">
+                        Gestión de Proyectos
+                    </a>
+                    <div class="collapse" id="gestionProyectos">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Proyecto", "Index", "Proyecto", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Fase", "Index", "Fase", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Actividad", "Index", "Actividad", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Gestión de Elementos de Configuración -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionElementos" role="button" aria-expanded="false" aria-controls="gestionElementos">
+                        Gestión de Elementos de Configuración
+                    </a>
+                    <div class="collapse" id="gestionElementos">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Elemento Configuración", "Index", "Elemento_Configuracion", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Versión", "Index", "Version", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Gestión de Cambios -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionCambios" role="button" aria-expanded="false" aria-controls="gestionCambios">
+                        Gestión de Cambios
+                    </a>
+                    <div class="collapse" id="gestionCambios">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Solicitud Cambio", "Index", "Solicitud_Cambio", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Elemento Solicitud Cambio", "Index", "Elemento_Solicitud_Cambio", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Historial Cambios", "Index", "Historial_Cambios", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Gestión de Tareas -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionTareas" role="button" aria-expanded="false" aria-controls="gestionTareas">
+                        Gestión de Tareas
+                    </a>
+                    <div class="collapse" id="gestionTareas">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Tarea", "Index", "Tarea", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Miembro Tarea", "Index", "Miembro_Tarea", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Elemento Tarea", "Index", "Elemento_Tarea", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Sección: Asignación de Miembros -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#asignacionMiembros" role="button" aria-expanded="false" aria-controls="asignacionMiembros">
+                        Asignación de Miembros
+                    </a>
+                    <div class="collapse" id="asignacionMiembros">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Miembro Proyecto", "Index", "Miembro_Proyecto", new { area = "Admin" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                @*
+                    <!-- OPCION SOLO UNO SIN DROP LIST-->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Miembro_Proyecto/Index">Asignación de Miembros</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                    @Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                *@
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Contenido Principal -->
+    <div id="content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

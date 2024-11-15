@@ -1,0 +1,109 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReporteSeguimientoActividades>
+
+@{
+    ViewBag.Title = "Seguimiento de Actividades de Proyecto";
+}
+
+<h2 class="text-center mt-4">@ViewBag.Title</h2>
+
+<!-- Formulario de filtro por proyecto -->
+<form method="get" action="@Url.Action("SeguimientoActividades")" class="form-inline mb-4">
+    <div class="form-group mr-2">
+        <label for="idProyecto" class="mr-2">Filtrar por Proyecto:</label>
+        @Html.DropDownList("idProyecto", ViewBag.Proyectos as SelectList, "Seleccione un Proyecto", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-warning text-center">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+else
+{
+    <!-- Gráfico de Seguimiento de Actividades -->
+    <div class="container my-4">
+        <canvas id="actividadesChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Tabla de Seguimiento de Actividades -->
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Proyecto</th>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha Inicio</th>
+                    <th scope="col">Fecha Fin</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Miembro</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Proyecto</td>
+                        <td>@item.Actividad</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
+                        <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Estado</td>
+                        <td>@item.Miembro</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Convertimos las fechas y el conteo de actividades por fecha para el gráfico
+        var ctx = document.getElementById('actividadesChart').getContext('2d');
+        var actividadesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.FechaInicio.ToString("dd/MM/yyyy")).Distinct())),
+                datasets: [{
+                    label: 'Cantidad de Actividades por Fecha',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+                        Model.GroupBy(m => m.FechaInicio.ToString("dd/MM/yyyy"))
+                            .Select(g => g.Count())
+                    )),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Actividades'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Fecha de Inicio'
+                        },
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        }
+                    }
+                }
+            }
+
+        });
+    </script>
+}

@@ -1,0 +1,50 @@
+﻿@model ProyectoSistemaGCSW.Models.Notificacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Notificacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mensaje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mensaje)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_envio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_envio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.leido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.leido)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_notificacion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

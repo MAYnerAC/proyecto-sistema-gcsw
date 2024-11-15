@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Prioridad>
+
+@{
+    ViewBag.Title = "Prioridades";
+}
+
+<h2>Prioridades</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Prioridad", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre de la Prioridad</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_prioridad }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_prioridad }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_prioridad }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

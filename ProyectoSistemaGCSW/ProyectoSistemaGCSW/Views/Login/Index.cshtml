@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <main class="d-flex w-100">
+        <div class="container d-flex flex-column">
+            <div class="row vh-100">
+                <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                    <div class="d-table-cell align-middle">
+
+                        <div class="text-center mt-4">
+                            <h1 class="h2">Bienvenidos a Gestión de la Configuración de Software</h1>
+                            <p class="lead">
+                                Inicie sesión en su cuenta para continuar
+                            </p>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="m-sm-4">
+                                    <div class="text-center">
+                                        <img src="" alt="Imagen de inicio de sesión" class="img-fluid rounded-circle" style="max-width: 132px;">
+                                    </div>
+                                    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                                    {
+                                        <div class="mb-3">
+                                            <label class="form-label">Correo electrónico</label>
+                                            <input class="form-control form-control-lg" type="email" name="correo" placeholder="Introduce tu correo electrónico" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Contraseña</label>
+                                            <input class="form-control form-control-lg" type="password" name="contrasena" placeholder="Ingresa tu contraseña" required />
+                                            <small>
+                                                <a href="#">¿Se te olvidó tu contraseña?</a>
+                                            </small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-check-label text-danger">@TempData["mensaje"]</label>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <button class="btn btn-primary btn-lg" type="submit">Iniciar Sesión</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

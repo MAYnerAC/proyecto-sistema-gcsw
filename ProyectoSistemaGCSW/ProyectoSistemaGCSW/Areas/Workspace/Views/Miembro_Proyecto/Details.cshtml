@@ -1,0 +1,50 @@
+﻿@model ProyectoSistemaGCSW.Models.Miembro_Proyecto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Miembro_Proyecto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyecto.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rol.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rol.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nivel)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_miembro_proyecto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

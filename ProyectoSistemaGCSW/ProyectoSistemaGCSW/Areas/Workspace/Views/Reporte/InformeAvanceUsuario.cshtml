@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReporteAvanceUsuario>
+
+@{
+    ViewBag.Title = "Informe de Avance por Usuario y Proyecto";
+}
+
+<h2 class="text-center mt-4">@ViewBag.Title</h2>
+
+<!-- Indicadores Rápidos -->
+<div class="row my-4 text-center">
+    <div class="col-md-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5 class="card-title">Tareas To Do</h5>
+                <p class="card-text">@Model.Sum(m => m.TotalTareasToDo)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <h5 class="card-title">Tareas In Progress</h5>
+                <p class="card-text">@Model.Sum(m => m.TotalTareasInProgress)</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Tareas Done</h5>
+                <p class="card-text">@Model.Sum(m => m.TotalTareasDone)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-warning text-center">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+else
+{
+    <div class="container my-4">
+        <canvas id="avanceUsuarioChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Tabla de Datos -->
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Proyecto</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Tareas To Do</th>
+                    <th scope="col">Tareas In Progress</th>
+                    <th scope="col">Tareas Done</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Proyecto</td>
+                        <td>@item.Usuario</td>
+                        <td class="text-center">@item.TotalTareasToDo</td>
+                        <td class="text-center">@item.TotalTareasInProgress</td>
+                        <td class="text-center">@item.TotalTareasDone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('avanceUsuarioChart').getContext('2d');
+        var avanceUsuarioChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.Usuario))),
+                datasets: [
+                    {
+                        label: 'Tareas To Do',
+                        data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalTareasToDo))),
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Tareas In Progress',
+                        data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalTareasInProgress))),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Tareas Done',
+                        data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalTareasDone))),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

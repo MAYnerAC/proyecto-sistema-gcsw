@@ -1,0 +1,82 @@
+﻿@model ProyectoSistemaGCSW.Models.Tarea
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tarea</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado_Tarea.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado_Tarea.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prioridad.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prioridad.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyecto.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_limite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_limite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_tarea }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

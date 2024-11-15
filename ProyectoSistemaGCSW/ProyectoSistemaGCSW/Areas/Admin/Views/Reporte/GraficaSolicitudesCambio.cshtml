@@ -1,0 +1,152 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReporteSolicitudesCambioEstado>
+
+@{
+    ViewBag.Title = "Gráfica de Solicitudes de Cambio por Estado";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<!-- Formulario de filtro por proyecto -->
+<form method="get" action="@Url.Action("GraficaSolicitudesCambio")" class="form-inline mb-4">
+    <div class="form-group mr-2">
+        <label for="idProyecto" class="mr-2">Filtrar por Proyecto:</label>
+        @Html.DropDownList("idProyecto", ViewBag.Proyectos as SelectList, "Seleccione un Proyecto", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+<!-- Botones para cambiar entre gráficos -->
+<div class="btn-group mb-4">
+    <button type="button" class="btn btn-info" id="showBarChart">Gráfico de Barras</button>
+    <button type="button" class="btn btn-info" id="showPieChart">Gráfico Circular</button>
+</div>
+
+<div class="container">
+    <canvas id="solicitudesCambioChart" width="400" height="200"></canvas>
+
+    <canvas id="solicitudesCambioPieChart" width="200" height="200" style="display: none;"></canvas>
+</div>
+
+@section Scripts {
+    <script>
+        const estados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.Estado)));
+        const totales = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalSolicitudes)));
+
+        // Grafico de Barras
+        var ctxBar = document.getElementById('solicitudesCambioChart').getContext('2d');
+        var solicitudesCambioChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: estados,
+                datasets: [{
+                    label: 'Total de Solicitudes de Cambio',
+                    data: totales,
+                    backgroundColor: estados.map(estado => {
+                        switch (estado) {
+                            case "Pendiente": return 'rgba(255, 99, 132, 0.2)';
+                            case "En Proceso": return 'rgba(255, 206, 86, 0.2)';
+                            case "Aprobado": return 'rgba(75, 192, 192, 0.2)';
+                            case "Rechazado": return 'rgba(153, 102, 255, 0.2)';
+                            default: return 'rgba(201, 203, 207, 0.2)';
+                        }
+                    }),
+                    borderColor: estados.map(estado => {
+                        switch (estado) {
+                            case "Pendiente": return 'rgba(255, 99, 132, 1)';
+                            case "En Proceso": return 'rgba(255, 206, 86, 1)';
+                            case "Aprobado": return 'rgba(75, 192, 192, 1)';
+                            case "Rechazado": return 'rgba(153, 102, 255, 1)';
+                            default: return 'rgba(201, 203, 207, 1)';
+                        }
+                    }),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Número de Solicitudes'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Estado de Solicitudes'
+                        }
+                    }
+                },
+                animation: {
+                    duration: 650,
+                    easing: 'ease'
+                }
+            }
+        });
+
+        // Gráfico Circular
+        let solicitudesCambioPieChart;
+
+        function renderPieChart() {
+            const ctxPie = document.getElementById('solicitudesCambioPieChart').getContext('2d');
+
+            if (solicitudesCambioPieChart) {
+                solicitudesCambioPieChart.destroy();
+            }
+
+            solicitudesCambioPieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: estados,
+                    datasets: [{
+                        label: 'Total de Solicitudes de Cambio',
+                        data: totales,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    animation: {
+                        duration: 650,
+                        easing: 'circle'
+                    }
+                }
+            });
+        }
+
+        document.getElementById('showBarChart').addEventListener('click', function() {
+            document.getElementById('solicitudesCambioChart').style.display = 'block';
+            document.getElementById('solicitudesCambioPieChart').style.display = 'none';
+        });
+
+        document.getElementById('showPieChart').addEventListener('click', function() {
+            document.getElementById('solicitudesCambioChart').style.display = 'none';
+            document.getElementById('solicitudesCambioPieChart').style.display = 'block';
+            renderPieChart();
+        });
+    </script>
+}

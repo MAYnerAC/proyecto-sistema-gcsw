@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Elemento_Solicitud_Cambio>
+
+@{
+    ViewBag.Title = "Elementos de Solicitud de Cambio";
+}
+
+<h2>Elementos de Solicitud de Cambio</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento de Configuración</th>
+            <th>Descripción de la Solicitud</th>
+            <th>Es Principal</th>
+            <th>Fecha de Asignación</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Elemento_Configuracion.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Solicitud_Cambio.descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.es_principal)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_asignacion)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_elemento_solicitud_cambio }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_elemento_solicitud_cambio }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_elemento_solicitud_cambio }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

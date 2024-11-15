@@ -1,0 +1,104 @@
+﻿@model ProyectoSistemaGCSW.Models.Proyecto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Proyecto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado_Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado_Proyecto.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Metodologia.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Metodologia.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo_proyecto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo_proyecto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_fin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_fin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url_repositorio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url_repositorio)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

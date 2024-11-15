@@ -1,0 +1,31 @@
+@{
+    var usuarioId = Session["id_usuario"];
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Mi Aplicación</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            @if (usuarioId != null)
+            {
+                <!-- Mostrar opciones para usuario autenticado -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Cerrar Sesión", "LogOut", "Login", new { area = "" }, new { @class = "nav-link" })
+                </li>
+            }
+            else
+            {
+                <!-- Mostrar opciones para visitante (no autenticado) -->
+                <li class="nav-item">
+                    @Html.ActionLink("Iniciar Sesión", "Index", "Login", new { area = "" }, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Registrarse", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

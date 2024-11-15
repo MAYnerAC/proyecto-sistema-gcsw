@@ -1,0 +1,119 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReporteEstadoProyecto>
+
+@{
+    ViewBag.Title = "Estado de Todos mis Proyectos";
+}
+<h2>@ViewBag.Title</h2>
+
+
+
+
+<div class="btn-group mb-4">
+    <button type="button" class="btn btn-info" id="showBarChart">Gráfico de Barras</button>
+    <button type="button" class="btn btn-info" id="showPieChart">Gráfico Circular</button>
+</div>
+
+<div class="container">
+    <canvas id="estadoProyectosChart" width="400" height="200"></canvas>
+
+    <canvas id="estadoProyectosPieChart" width="200" height="200" style="display: none;"></canvas>
+</div>
+
+@section Scripts {
+    <script>
+        const estados = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.Estado)));
+        const totales = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.TotalProyectos)));
+
+        // Grafico de Barras
+        var ctxBar = document.getElementById('estadoProyectosChart').getContext('2d');
+        var estadoProyectosChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: estados,
+                datasets: [{
+                    label: 'Total de Proyectos',
+                    data: totales,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Número de Proyectos'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Estado de Proyectos'
+                        }
+                    }
+                },
+                animation: {
+                    duration: 650,
+                    easing: 'ease'
+                }
+            }
+        });
+
+        // Grafico Circular
+        let estadoProyectosPieChart;
+
+        function renderPieChart() {
+            const ctxPie = document.getElementById('estadoProyectosPieChart').getContext('2d');
+
+            if (estadoProyectosPieChart) {
+                estadoProyectosPieChart.destroy();
+            }
+
+            estadoProyectosPieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: estados,
+                    datasets: [{
+                        label: 'Total de Proyectos',
+                        data: totales,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById('showBarChart').addEventListener('click', function() {
+            document.getElementById('estadoProyectosChart').style.display = 'block';
+            document.getElementById('estadoProyectosPieChart').style.display = 'none';
+        });
+
+        document.getElementById('showPieChart').addEventListener('click', function() {
+            document.getElementById('estadoProyectosChart').style.display = 'none';
+            document.getElementById('estadoProyectosPieChart').style.display = 'block';
+            renderPieChart();
+        });
+    </script>
+}

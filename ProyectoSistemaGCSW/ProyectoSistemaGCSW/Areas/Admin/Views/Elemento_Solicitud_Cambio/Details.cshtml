@@ -1,0 +1,50 @@
+﻿@model ProyectoSistemaGCSW.Models.Elemento_Solicitud_Cambio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Elemento_Solicitud_Cambio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Elemento_Configuracion.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Elemento_Configuracion.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Solicitud_Cambio.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Solicitud_Cambio.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.es_principal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.es_principal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_asignacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_asignacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_elemento_solicitud_cambio }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

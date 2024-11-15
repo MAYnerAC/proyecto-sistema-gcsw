@@ -1,0 +1,74 @@
+﻿@model ProyectoSistemaGCSW.Models.Historial_Cambios
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Historial_Cambios</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tabla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tabla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_registro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_registro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_cambio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_cambio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_anterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_anterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor_nuevo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor_nuevo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_cambio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_cambio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_historial }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,92 @@
+﻿@model ProyectoSistemaGCSW.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Panel de Workspace";
+}
+
+<h2 class="text-center mt-4">@ViewBag.Title</h2>
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <!-- Información General -->
+        <div class="col-md-12">
+            <div class="card text-center shadow">
+                <div class="card-header bg-primary text-white">
+                    Información General
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Bienvenido, @Session["nombre_usuario"] @Session["apellido_usuario"]</h5>
+                    <p class="card-text">Correo: @Session["correo_usuario"]</p>
+                    <p class="card-text">Tipo de usuario: @Session["tipo_usuario"]</p>
+                </div>
+                <div class="card-footer">
+                    <small>Panel de control</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Tarjeta de Proyectos -->
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow" style="height: 100%;">
+                <div class="card-header bg-success text-white">
+                    Proyectos
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Proyectos: @Model.TotalProyectos</h5>
+                    <p class="card-text">Planificados: @Model.ProyectosPlanificados</p>
+                    <p class="card-text">Pendientes: @Model.ProyectosPendientes</p>
+                    <p class="card-text">En Progreso: @Model.ProyectosEnProgreso</p>
+                    <p class="card-text">En Espera: @Model.ProyectosEnEspera</p>
+                    <p class="card-text">Finalizados: @Model.ProyectosFinalizados</p>
+                    <p class="card-text">Cancelados: @Model.ProyectosCancelados</p>
+                    <p class="card-text">Cerrados: @Model.ProyectosCerrados</p>
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Ver Proyectos", "MisProyectos", "Proyecto", new { area = "Workspace" }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Solicitudes -->
+        <div class="col-md-6 mb-4">
+            <div class="card text-center shadow" style="height: 100%;">
+                <div class="card-header bg-warning text-dark">
+                    Solicitudes de Cambio
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Solicitudes: @Model.TotalSolicitudes</h5>
+                    <p class="card-text">Pendientes: @Model.SolicitudesPendientes</p>
+                    <p class="card-text">En Revisión: @Model.SolicitudesEnRevision</p>
+                    <p class="card-text">Aprobadas: @Model.SolicitudesAprobadas</p>
+                    <p class="card-text">Rechazadas: @Model.SolicitudesRechazadas</p>
+                </div>
+                <div class="card-footer">
+                    @Html.ActionLink("Ver Solicitudes", "Index", "Solicitud_Cambio", new { area = "Workspace" }, new { @class = "btn btn-warning" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Acciones Rápidas -->
+        <div class="col-md-12 mb-4">
+            <div class="card text-center shadow">
+                <div class="card-header bg-info text-white">
+                    Acciones Rápidas
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestione fácilmente</h5>
+                    @Html.ActionLink("Agregar Nueva Tarea", "Create", "Tarea", new { area = "Workspace" }, new { @class = "btn btn-light mr-2" })
+                    @Html.ActionLink("Agregar Nuevo Proyecto", "Create", "Proyecto", new { area = "Workspace" }, new { @class = "btn btn-light mr-2" })
+                    @Html.ActionLink("Ver Reportes", "GraficaEstadoProyectos", "Reporte", new { area = "Workspace" }, new { @class = "btn btn-light" })
+                    @Html.ActionLink("Ver Reportes", "GraficaEstadoProyectos", "Reporte", new { area = "Workspace" }, new { @class = "btn btn-light" })
+                </div>
+                <div class="card-footer">
+                    <small>Utilice los enlaces para navegar rápidamente</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.ReportModels.ReporteProgresoTareas>
+
+<h2 class="text-center mt-4">Tablero de Progreso de Tareas</h2>
+
+<form method="get" action="@Url.Action("TableroProgresoTareas")" class="form-inline mb-4">
+    <div class="form-group mr-2">
+        <label for="idProyecto" class="mr-2">Filtrar por Proyecto:</label>
+        @Html.DropDownList("idProyecto", ViewBag.Proyectos as SelectList, "Seleccione un Proyecto", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-warning text-center">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var estado in Model)
+        {
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card w-100 shadow-sm">
+
+                    <div class="card-header text-center text-white @GetHeaderColor(estado.Estado)" style="font-size: 1.2em;">
+                        <strong>@estado.Estado</strong>
+                        <div class="small">
+                            @if (estado.Estado == "To Do")
+                            {
+                                <span>Esta tarea no se ha iniciado.</span>
+                            }
+                            else if (estado.Estado == "In Progress")
+                            {
+                                <span>Se está trabajando activamente en esto.</span>
+                            }
+                            else if (estado.Estado == "Done")
+                            {
+                                <span>Esto se ha completado.</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card-body d-flex flex-column justify-content-start">
+                        <ul class="list-group list-group-flush">
+                            @if (estado.Tareas.Any())
+                            {
+                                foreach (var tarea in estado.Tareas)
+                                {
+                                    <li class="list-group-item border-0">
+                                        <a href="@Url.Action("Details", "Tarea", new { id = tarea.IdTarea })" class="text-decoration-none">
+                                            <strong>@tarea.NombreTarea</strong>
+                                        </a>
+                                        <br>
+                                        <small class="badge @GetPriorityColor(tarea.Prioridad)">@tarea.Prioridad</small>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="list-group-item text-center">
+                                    <small class="text-muted">No hay tareas registradas.</small>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <a href="@Url.Action("Create", "Tarea", new { estado = estado.Estado })" class="btn btn-outline-primary btn-sm">
+                            Agregar Tarea
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
+@functions {
+    public string GetHeaderColor(string estado)
+    {
+        switch (estado)
+        {
+            case "To Do":
+                return "bg-success text-dark"; // Verde
+            case "In Progress":
+                return "bg-warning text-dark"; // Naranja oscuro
+            case "Done":
+                return "bg-primary text-white"; // Azul oscuro
+            default:
+                return "bg-secondary text-white";
+        }
+    }
+
+    public string GetPriorityColor(string prioridad)
+    {
+        switch (prioridad)
+        {
+            case "Critica":
+                return "badge-danger"; // Rojo
+            case "Urgente":
+                return "badge-warning"; // Naranja
+            case "Alta":
+                return "badge-primary"; // Azul
+            case "Media":
+                return "badge-info"; // Celeste
+            case "Baja":
+                return "badge-secondary"; // Gris
+            case "Opcional":
+                return "badge-light"; // Blanco o gris claro
+            default:
+                return "badge-dark";
+        }
+    }
+}
