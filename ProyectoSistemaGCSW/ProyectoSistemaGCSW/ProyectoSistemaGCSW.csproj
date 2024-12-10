@@ -157,6 +157,7 @@
     <Compile Include="Areas\Workspace\Controllers\PanelController.cs" />
     <Compile Include="Areas\Workspace\Controllers\ProyectoController.cs" />
     <Compile Include="Areas\Workspace\Controllers\ReporteController.cs" />
+    <Compile Include="Areas\Workspace\Controllers\TareaController.cs" />
     <Compile Include="Areas\Workspace\WorkspaceAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -362,6 +363,11 @@
     <Content Include="Areas\Workspace\Views\Miembro_Proyecto\Details.cshtml" />
     <Content Include="Areas\Workspace\Views\Miembro_Proyecto\Edit.cshtml" />
     <Content Include="Areas\Workspace\Views\Miembro_Proyecto\Index.cshtml" />
+    <Content Include="Areas\Workspace\Views\Tarea\Create.cshtml" />
+    <Content Include="Areas\Workspace\Views\Tarea\Delete.cshtml" />
+    <Content Include="Areas\Workspace\Views\Tarea\Details.cshtml" />
+    <Content Include="Areas\Workspace\Views\Tarea\Edit.cshtml" />
+    <Content Include="Areas\Workspace\Views\Tarea\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

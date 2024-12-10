@@ -176,118 +176,121 @@
                     </div>
                 </li>
 
-                <!-- Sección: Gestión de Miembros -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionMiembros" role="button" aria-expanded="false" aria-controls="gestionMiembros">
-                        Gestión de Miembros
-                    </a>
-                    <div class="collapse" id="gestionMiembros">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Miembros del Proyecto", "Index", "Miembro_Proyecto", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                @if (Session["ProyectoId"] != null)//(Session["ProyectoId"] != null)
+                {
 
-                <!-- Sección: Gestión de Tareas -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionTareas" role="button" aria-expanded="false" aria-controls="gestionTareas">
-                        Gestión de Tareas
-                    </a>
-                    <div class="collapse" id="gestionTareas">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Mis Tareas", "Index", "Tarea", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Crear Tarea", "Create", "Tarea", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <!-- Sección: Gestión de Miembros -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#gestionMiembros" role="button" aria-expanded="false" aria-controls="gestionMiembros">
+                            Gestión de Miembros
+                        </a>
+                        <div class="collapse" id="gestionMiembros">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Miembros del Proyecto", "Index", "Miembro_Proyecto", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <!-- Sección: Solicitudes de Cambio -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionCambios" role="button" aria-expanded="false" aria-controls="gestionCambios">
-                        Solicitudes de Cambio
-                    </a>
-                    <div class="collapse" id="gestionCambios">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Solicitar Cambio", "Create", "Solicitud_Cambio", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Mis Solicitudes", "Index", "Solicitud_Cambio", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <!-- Sección: Gestión de Tareas -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#gestionTareas" role="button" aria-expanded="false" aria-controls="gestionTareas">
+                            Gestión de Tareas
+                        </a>
+                        <div class="collapse" id="gestionTareas">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Mis Tareas", "Index", "Tarea", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Crear Tarea", "Create", "Tarea", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <!-- Sección: Elementos de Configuración -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionElementos" role="button" aria-expanded="false" aria-controls="gestionElementos">
-                        Elementos de Configuración
-                    </a>
-                    <div class="collapse" id="gestionElementos">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Elementos de Configuración", "Index", "Elemento_Configuracion", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <!-- Sección: Solicitudes de Cambio -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#gestionCambios" role="button" aria-expanded="false" aria-controls="gestionCambios">
+                            Solicitudes de Cambio
+                        </a>
+                        <div class="collapse" id="gestionCambios">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Solicitar Cambio", "Create", "Solicitud_Cambio", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Mis Solicitudes", "Index", "Solicitud_Cambio", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <!-- Sección: Actividades -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionActividades" role="button" aria-expanded="false" aria-controls="gestionActividades">
-                        Gestión de Actividades
-                    </a>
-                    <div class="collapse" id="gestionActividades">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Actividades", "Index", "Actividad", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <!-- Sección: Elementos de Configuración -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#gestionElementos" role="button" aria-expanded="false" aria-controls="gestionElementos">
+                            Elementos de Configuración
+                        </a>
+                        <div class="collapse" id="gestionElementos">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Elementos de Configuración", "Index", "Elemento_Configuracion", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-
-
-                <!-- Sección: Centro de Monitoreo y Análisis -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#centroMonitoreo" role="button" aria-expanded="false" aria-controls="centroMonitoreo">
-                        Centro de Monitoreo y Análisis
-                    </a>
-                    <div class="collapse" id="centroMonitoreo">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">
-                                @Html.ActionLink("Gráfica de Estado de Proyectos", "GraficaEstadoProyectos", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Gráfica de Solicitudes de Cambio por Estado", "GraficaSolicitudesCambio", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Tablero de Progreso de Tareas", "TableroProgresoTareas", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Informe de Avance por Usuario", "InformeAvanceUsuario", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Análisis de Prioridades de Tareas", "AnalisisPrioridadesTareas", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Informe de Versiones de Elementos de Configuración", "InformeVersionesElementos", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Seguimiento de Actividades de Proyecto", "SeguimientoActividades", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <!-- Sección: Actividades -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#gestionActividades" role="button" aria-expanded="false" aria-controls="gestionActividades">
+                            Gestión de Actividades
+                        </a>
+                        <div class="collapse" id="gestionActividades">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Actividades", "Index", "Actividad", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
 
 
+                    <!-- Sección: Centro de Monitoreo y Análisis -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#centroMonitoreo" role="button" aria-expanded="false" aria-controls="centroMonitoreo">
+                            Centro de Monitoreo y Análisis
+                        </a>
+                        <div class="collapse" id="centroMonitoreo">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Gráfica de Estado de Proyectos", "GraficaEstadoProyectos", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Gráfica de Solicitudes de Cambio por Estado", "GraficaSolicitudesCambio", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Tablero de Progreso de Tareas", "TableroProgresoTareas", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Informe de Avance por Usuario", "InformeAvanceUsuario", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Análisis de Prioridades de Tareas", "AnalisisPrioridadesTareas", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Informe de Versiones de Elementos de Configuración", "InformeVersionesElementos", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Seguimiento de Actividades de Proyecto", "SeguimientoActividades", "Reporte", new { area = "Workspace" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                }
 
 
 

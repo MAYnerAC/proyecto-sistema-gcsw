@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Tarea>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado_Tarea.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prioridad.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_limite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado_Tarea.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prioridad.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_creacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_limite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_tarea }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_tarea }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_tarea })
+        </td>
+    </tr>
+}
+
+</table>

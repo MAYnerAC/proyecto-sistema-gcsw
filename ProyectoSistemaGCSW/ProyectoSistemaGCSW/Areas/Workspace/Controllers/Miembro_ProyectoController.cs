@@ -12,6 +12,8 @@ using ProyectoSistemaGCSW.Models;
 
 namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(3)]
     [ProyectoSeleccionado]
     public class Miembro_ProyectoController : Controller
     {
