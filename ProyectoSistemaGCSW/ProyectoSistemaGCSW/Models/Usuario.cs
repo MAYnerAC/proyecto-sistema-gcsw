@@ -195,6 +195,31 @@ namespace ProyectoSistemaGCSW.Models
 
 
 
+        public bool RegistrarUsuario()
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    if (db.Usuario.Any(u => u.correo == this.correo))
+                    {
+                        return false;
+                    }
+
+                    this.id_tipo_usuario = 3;
+                    //this.fecha_registro = DateTime.Now;
+                    this.estado = "A";
+
+                    db.Entry(this).State = EntityState.Added;
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al registrar el usuario", ex);
+            }
+        }
 
 
 

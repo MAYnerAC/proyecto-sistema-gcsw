@@ -9,6 +9,7 @@ using System.Web.Mvc;
 //
 using ProyectoSistemaGCSW.Filters;
 using ProyectoSistemaGCSW.Models;
+using ProyectoSistemaGCSW.Service;
 
 namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
 {
@@ -120,7 +121,7 @@ namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
         // POST: Workspace/Proyecto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Proyecto proyecto)
+        public ActionResult Create(Proyecto proyecto, bool usarPlantilla = false)
         {
             if (ModelState.IsValid)
             {
@@ -133,6 +134,14 @@ namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
 
                 db.Proyecto.Add(proyecto);
                 db.SaveChanges();
+
+
+                // Si el usuario selecciona "usarPlantilla", insertar la plantilla
+                if (usarPlantilla)
+                {
+                    InsertarECS(proyecto.id_proyecto, proyecto.id_metodologia);
+                }
+
                 return RedirectToAction("MisProyectos");
             }
 
@@ -140,6 +149,57 @@ namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
             ViewBag.id_metodologia = new SelectList(db.Metodologia, "id_metodologia", "nombre", proyecto.id_metodologia);
             return View(proyecto);
         }
+
+
+
+        private void InsertarECS(int idProyecto, int idMetodologia)
+        {
+            using (var context = new ModeloSistema())
+            {
+                // Validar si existen fases para la metodología seleccionada
+                var fases = context.Fase
+                    .Where(f => f.id_metodologia == idMetodologia && f.estado == "A")
+                    .ToList();
+
+                if (fases == null)
+                {
+                    throw new Exception("No se encontraron fases para la metodología seleccionada.");
+                }
+
+                // Crear lista de elementos de configuración
+                var elementosConfiguracion = new List<Elemento_Configuracion>();
+
+                // Obtener ECS segun la metodologia
+                switch (idMetodologia)
+                {
+                    case 1: // RUP
+                        elementosConfiguracion.AddRange(PlantillasService.ObtenerECSRUP(idProyecto));
+                        break;
+
+                    case 2: // Scrum
+                        elementosConfiguracion.AddRange(PlantillasService.ObtenerECSScrum(idProyecto));
+                        break;
+
+                    case 3: // Kanban
+                        elementosConfiguracion.AddRange(PlantillasService.ObtenerECSKanban(idProyecto));
+                        break;
+
+                    case 4: // Waterfall
+                        elementosConfiguracion.AddRange(PlantillasService.ObtenerECSWaterfall(idProyecto));
+                        break;
+
+                    default:
+                        throw new Exception("Metodología no soportada.");
+                }
+
+                // Guardar los elementos de configuración en la base de datos
+                context.Elemento_Configuracion.AddRange(elementosConfiguracion);
+                context.SaveChanges();
+            }
+        }
+
+
+
 
 
         // GET: Workspace/Proyecto/Edit/5
@@ -175,6 +235,7 @@ namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
 
                 // Solo actualizar campos permitidos
                 proyectoExistente.nombre = proyecto.nombre;
+                proyectoExistente.codigo_proyecto = proyecto.codigo_proyecto;
                 proyectoExistente.descripcion = proyecto.descripcion;
                 proyectoExistente.fecha_fin = proyecto.fecha_fin;
                 proyectoExistente.id_estado_proyecto = proyecto.id_estado_proyecto;

@@ -39,14 +39,17 @@ namespace ProyectoSistemaGCSW.Controllers
                     int tipoUsuario = usuarioAutenticado.id_tipo_usuario;
                     if (tipoUsuario == 1) // Admin
                     {
+                        TempData["Mensaje"] = "Bienvenido " + usuarioAutenticado.nombre + " " + usuarioAutenticado.apellido;
                         return RedirectToAction("Index", "Panel", new { area = "Admin" });
                     }
                     else if (tipoUsuario == 2) // Supervisor
                     {
+                        TempData["Mensaje"] = "Bienvenido " + usuarioAutenticado.nombre + " " + usuarioAutenticado.apellido;
                         return RedirectToAction("Index", "Panel", new { area = "Admin" });
                     }
                     else // Usuario
                     {
+                        TempData["Mensaje"] = "Bienvenido " + usuarioAutenticado.nombre + " " + usuarioAutenticado.apellido;
                         return RedirectToAction("Index", "Panel", new { area = "Workspace" });
                     }
                 }
@@ -84,6 +87,39 @@ namespace ProyectoSistemaGCSW.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
+
+
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+
+
+        // Registro de Usuario
+        [HttpPost]
+        public ActionResult Registro(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                bool usuarioRegistrado = usuario.RegistrarUsuario();
+
+                if (usuarioRegistrado)
+                {
+                    TempData["mensaje"] = "Usuario registrado exitosamente.";
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    TempData["mensaje"] = "Hubo un problema al registrar el usuario.";
+                }
+            }
+
+            return RedirectToAction("Index", "Login");
+        }
+
+
+
 
 
 

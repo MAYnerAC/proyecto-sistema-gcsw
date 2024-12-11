@@ -15,6 +15,41 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
+
+
+
+
+    <style>
+        .alert-floating {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert.fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+
+
+
+    <style>
+        /* Añadir una transición suave al desaparecer */
+        .alert {
+            transition: opacity 0.5s ease-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
+
+
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -134,7 +169,22 @@
 
 
 
+    <!-- Zona de mensajes -->
+    <div id="alert-container">
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success alert-floating">
+                @TempData["Mensaje"]
+            </div>
+        }
 
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-floating">
+                @TempData["Error"]
+            </div>
+        }
+    </div>
 
 
     <!-- Barra lateral -->
@@ -378,4 +428,17 @@
         },
     });
 
+</script>
+
+
+
+<script>
+    // Alertas Mensaje o Error
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert-floating');
+        alerts.forEach(alert => {
+            alert.classList.add('fade-out');
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000); // Tiempo de 5 segundos
 </script>
