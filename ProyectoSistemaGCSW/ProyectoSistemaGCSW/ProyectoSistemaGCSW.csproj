@@ -369,6 +369,8 @@
     <Content Include="Areas\Workspace\Views\Tarea\Details.cshtml" />
     <Content Include="Areas\Workspace\Views\Tarea\Edit.cshtml" />
     <Content Include="Areas\Workspace\Views\Tarea\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\sistemagcsw - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sistemagcsw - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
