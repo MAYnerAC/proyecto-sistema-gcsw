@@ -1,0 +1,152 @@
+﻿/* General styling */
+.detail-container-b {
+    background-color: #f9f9fc;
+    font-family: Arial, sans-serif;
+}
+
+.detail-container {
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .header h1 {
+        font-size: 1.8em;
+        margin: 0;
+    }
+
+    .header .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .header form button, .header a {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 5px;
+        color: white;
+        font-size: 1em;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #66bb6a, #388e3c);
+    }
+
+.btn-delete {
+    background: linear-gradient(135deg, #e53935, #d32f2f);
+}
+
+    .btn-delete:hover {
+        background: linear-gradient(135deg, #f44336, #c62828);
+    }
+
+.btn-back {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
+}
+
+    .btn-back:hover {
+        background: linear-gradient(135deg, #42a5f5, #1e88e5);
+    }
+
+.task-details {
+    margin-bottom: 20px;
+}
+
+    .task-details label {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .task-details input,
+    .task-details textarea,
+    .task-details select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+.members, .related-elements {
+    margin-top: 20px;
+}
+
+    .members ul, .related-elements ul {
+        list-style: none;
+        padding: 0;
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .members li, .related-elements li {
+        padding: 10px;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .members li:last-child, .related-elements li:last-child {
+            border-bottom: none;
+        }
+
+    .members form button, .related-elements form button {
+        background-color: #d32f2f;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        border: none;
+        cursor: pointer;
+    }
+
+        .members form button:hover, .related-elements form button:hover {
+            background-color: #e53935;
+        }
+
+.add-item {
+    margin-top: 10px;
+    text-align: right;
+}
+
+    .add-item a {
+        background: linear-gradient(135deg, #1976d2, #0d47a1);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .add-item a:hover {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }

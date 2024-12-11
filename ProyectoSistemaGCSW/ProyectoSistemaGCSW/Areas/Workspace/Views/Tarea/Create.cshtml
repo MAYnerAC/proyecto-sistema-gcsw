@@ -1,96 +1,78 @@
 ﻿@model ProyectoSistemaGCSW.Models.Tarea
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Tarea";
 }
 
-<h2>Create</h2>
+<h2>Crear Tarea</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Tarea</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Título -->
         <div class="form-group">
-            @Html.LabelFor(model => model.titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.titulo, "Titulo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.titulo, new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Descripción -->
         <div class="form-group">
-            @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.descripcion, "Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", rows = 3 })
                 @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Estado de Tarea -->
         <div class="form-group">
-            @Html.LabelFor(model => model.id_proyecto, "id_proyecto", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.id_estado_tarea, "Estado de Tarea", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("id_proyecto", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.id_proyecto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.id_estado_tarea, "id_estado_tarea", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("id_estado_tarea", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("id_estado_tarea", null, htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.id_estado_tarea, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Prioridad -->
         <div class="form-group">
-            @Html.LabelFor(model => model.id_prioridad, "id_prioridad", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.id_prioridad, "Prioridad", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("id_prioridad", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("id_prioridad", null, htmlAttributes: new { @class = "form-control", required = "required" })
                 @Html.ValidationMessageFor(model => model.id_prioridad, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Fecha Límite -->
         <div class="form-group">
-            @Html.LabelFor(model => model.fecha_creacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.fecha_limite, "Fecha Límite", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fecha_creacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fecha_creacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.fecha_limite, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fecha_limite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.fecha_limite, new { @class = "form-control", type = "date" })
                 @Html.ValidationMessageFor(model => model.fecha_limite, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        <!-- Botón de Enviar -->
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Crear Tarea" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al Tablero", "Index", null, new { @class = "btn btn-secondary" })
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+

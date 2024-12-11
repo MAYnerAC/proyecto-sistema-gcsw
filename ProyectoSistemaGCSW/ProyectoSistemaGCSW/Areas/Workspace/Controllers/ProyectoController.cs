@@ -48,6 +48,35 @@ namespace ProyectoSistemaGCSW.Areas.Workspace.Controllers
                 Session["UrlRepositorio"] = proyectoSeleccionado.url_repositorio;
                 Session["MetodologiaProyecto"] = proyectoSeleccionado.Metodologia.nombre;
 
+                Session["IdUsuarioCreador"] = proyectoSeleccionado.id_usuario_creador;
+
+
+                int usuarioId = (int)Session["id_usuario"];
+
+
+                // Buscar el miembro del proyecto correspondiente
+                var miembroProyecto = db.Miembro_Proyecto
+                                        .Include(mp => mp.Rol)
+                                        .FirstOrDefault(mp => mp.id_proyecto == idProyecto && mp.id_usuario == usuarioId);
+
+                if (miembroProyecto != null)
+                {
+                    // Guardar detalles del miembro en sesión
+                    Session["IdMiembroProyecto"] = miembroProyecto.id_miembro_proyecto;
+                    Session["RolUsuarioProyecto"] = miembroProyecto.Rol.nombre;
+                    Session["NivelAccesoProyecto"] = miembroProyecto.nivel;
+                }
+                else
+                {
+                    // Si no es miembro del proyecto, limpiar detalles de miembro
+                    Session["IdMiembroProyecto"] = null;
+                    Session["RolUsuarioProyecto"] = null;
+                    Session["NivelAccesoProyecto"] = null;
+                }
+
+
+
+
                 if (Request.UrlReferrer != null)//URL de Referencia
                 {
                     return Redirect(Request.UrlReferrer.ToString());

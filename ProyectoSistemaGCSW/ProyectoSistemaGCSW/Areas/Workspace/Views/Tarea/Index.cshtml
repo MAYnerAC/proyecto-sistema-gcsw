@@ -1,75 +1,69 @@
 ﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Tarea>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tareas";
+
+    var priorityClasses = new Dictionary<int, string>
+{
+        { 1, "critical" },
+        { 2, "urgent" },
+        { 3, "high" },
+        { 4, "medium" },
+        { 5, "low" },
+        { 6, "optional" }
+    };
 }
 
-<h2>Index</h2>
+<h2>Tareas</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado_Tarea.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prioridad.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha_creacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha_limite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th></th>
-    </tr>
+<div class="container mt-4">
+    <div class="add-task-button">
+        <a href="@Url.Action("Create", "Tarea")" class="btn btn-primary">+ Agregar Tarea</a>
+    </div>
+    <div class="kanban-container">
+        <!-- Column: To Do -->
+        <div class="kanban-column to-do">
+            <h3>To Do</h3>
+            <div class="kanban-cards">
+                @foreach (var tarea in ViewBag.ToDo)
+                {
+                    <div class="kanban-card">
+                        <h4><a href="@Url.Action("Details", "Tarea", new { id = tarea.id_tarea })">@tarea.titulo</a></h4>
+                        <p>@tarea.descripcion</p>
+                        <span class="priority @(priorityClasses.ContainsKey(tarea.Prioridad.id_prioridad) ? priorityClasses[tarea.Prioridad.id_prioridad] : "optional")">@tarea.Prioridad.nombre</span>
+                    </div>
+                }
+            </div>
+        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado_Tarea.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prioridad.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha_creacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha_limite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_tarea }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_tarea }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_tarea })
-        </td>
-    </tr>
-}
+        <!-- Column: In Progress -->
+        <div class="kanban-column in-progress">
+            <h3>In Progress</h3>
+            <div class="kanban-cards">
+                @foreach (var tarea in ViewBag.InProgress)
+                {
+                    <div class="kanban-card">
+                        <h4><a href="@Url.Action("Details", "Tarea", new { id = tarea.id_tarea })">@tarea.titulo</a></h4>
+                        <p>@tarea.descripcion</p>
+                        <span class="priority @(priorityClasses.ContainsKey(tarea.Prioridad.id_prioridad) ? priorityClasses[tarea.Prioridad.id_prioridad] : "optional")">@tarea.Prioridad.nombre</span>
+                    </div>
+                }
+            </div>
+        </div>
 
-</table>
+        <!-- Column: Done -->
+        <div class="kanban-column done">
+            <h3>Done</h3>
+            <div class="kanban-cards">
+                @foreach (var tarea in ViewBag.Done)
+                {
+                    <div class="kanban-card">
+                        <h4><a href="@Url.Action("Details", "Tarea", new { id = tarea.id_tarea })">@tarea.titulo</a></h4>
+                        <p>@tarea.descripcion</p>
+                        <span class="priority @(priorityClasses.ContainsKey(tarea.Prioridad.id_prioridad) ? priorityClasses[tarea.Prioridad.id_prioridad] : "optional")">@tarea.Prioridad.nombre</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,81 +2,201 @@
 
 @{
     ViewBag.Title = "Details";
+
+
+    var priorityClasses = new Dictionary<int, string>
+{
+        { 1, "critical" },
+        { 2, "urgent" },
+        { 3, "high" },
+        { 4, "medium" },
+        { 5, "low" },
+        { 6, "optional" }
+    };
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Tarea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado_Tarea.nombre)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Estado_Tarea.nombre)
-        </dd>
+<div class="detail-container-b">
+    <div class="container detail-container">
+        <div class="header">
+            <h1>@Html.DisplayFor(model => model.titulo)</h1>
+            <div class="action-buttons">
+                <a href="@Url.Action("Index", "Tarea")" class="btn-back">Volver</a>
+                @using (Html.BeginForm("Delete", "Tarea", FormMethod.Post, new { style = "display: inline;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", Model.id_tarea)
+                    <button class="btn-delete">Eliminar</button>
+                }
+                @* Formulario para eliminar la tarea *@
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Prioridad.nombre)
-        </dt>
+        @using (Html.BeginForm("Edit", "Tarea", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="task-details">
 
-        <dd>
-            @Html.DisplayFor(model => model.Prioridad.nombre)
-        </dd>
+                <!-- Campo oculto para id_tarea -->
+                @Html.HiddenFor(model => model.id_tarea)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Proyecto.nombre)
-        </dt>
+                <!-- Título -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.titulo, "Título", htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.titulo, new { @class = "form-control", maxlength = 100, required = "required" })
+                    @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Proyecto.nombre)
-        </dd>
+                <!-- Descripción -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.descripcion, "Descripción", htmlAttributes: new { @class = "control-label" })
+                    @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", rows = 3 })
+                    @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.titulo)
-        </dt>
+                <!-- Prioridad -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.id_prioridad, "Prioridad", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("id_prioridad", null, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.id_prioridad, "", new { @class = "text-danger" })
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.titulo)
-        </dd>
+                <!-- Estado -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.id_estado_tarea, "Estado", htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownList("id_estado_tarea", null, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.id_estado_tarea, "", new { @class = "text-danger" })
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fecha_limite, "Fecha Límite", htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.fecha_limite, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(model => model.fecha_limite, "", new { @class = "text-danger" })
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fecha_creacion)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.fecha_creacion)
-        </dd>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fecha_limite)
-        </dt>
+            <div class="text-end mt-4">
+                <button class="btn-save btn btn-primary">Guardar Cambios</button>
+            </div>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.fecha_limite)
-        </dd>
+        <div class="members mt-5">
+            <h2>Miembros Asignados</h2>
+            <ul class="list-group">
+                @foreach (var miembro in (List<ProyectoSistemaGCSW.Models.ViewModels.MiembroTareaViewModel>)ViewBag.MiembrosTarea)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @* <span class="priority @(miembro.EsPrincipal ? priorityClasses[5] : "optional")"> *@
+                        <span class="priority @(miembro.EsPrincipal ? priorityClasses[2] : "low")">
+                            @miembro.Nombre @miembro.Apellido (@(miembro.EsPrincipal ? "Principal" : "Secundario"))
+                        </span>
+                        <form method="POST" action="@Url.Action("RemoveMember", "Tarea", new { idMiembroTarea = miembro.IdMiembroTarea })" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-danger">Eliminar</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+            <div class="add-item mt-3">
+                <a href="@Url.Action("AddMember", "Tarea", new { id = Model.id_tarea })" class="btn btn-sm btn-primary">Agregar Miembro</a>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
+        <div class="related-elements mt-5">
+            <h2>Elementos Relacionados</h2>
+            <ul class="list-group">
+                @foreach (var elemento in (List<ProyectoSistemaGCSW.Models.ViewModels.ElementoTareaViewModel>)ViewBag.ElementosTarea)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="priority @(elemento.EsPrincipal ? priorityClasses[2] : "low")">
+                            @elemento.CodigoElemento - @elemento.NombreElemento (@(elemento.EsPrincipal ? "Principal" : "Secundario"))
+                        </span>
+                        <form method="POST" action="@Url.Action("RemoveElement", "Tarea", new { idElementoTarea = elemento.IdElementoTarea })" style="display: inline;">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-danger">Eliminar</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+            <div class="add-item mt-3">
+                <a href="@Url.Action("AddElement", "Tarea", new { id = Model.id_tarea })" class="btn btn-sm btn-primary">Agregar Elemento</a>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.estado)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_tarea }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+@*<div class="detail-container-b">
+        <div class="container detail-container">
+            <div class="header">
+                <h1>Edit Task: Design Homepage</h1>
+                <div class="action-buttons">
+                    <a href="/tasks" class="btn-back">Volver</a>
+                    <form method="POST" action="/tasks/delete" style="display: inline;"><button class="btn-delete">Delete</button></form>
+                </div>
+            </div>
+
+            <form method="POST" action="/tasks/save">
+                <div class="task-details">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="3">Revamp the website homepage with a new layout.</textarea>
+
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="critical" selected>Critical</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="optional">Optional</option>
+                    </select>
+
+                    <label for="due-date">Due Date:</label>
+                    <input type="date" id="due-date" name="due_date" value="2024-12-15">
+                </div>
+
+                <div class="text-end mt-4">
+                    <button class="btn-save">Save</button>
+                </div>
+            </form>
+
+            <div class="members">
+                <h2>Assigned Members</h2>
+                <ul>
+                    <li>
+                        John Doe
+                        <form method="POST" action="/tasks/remove-member/1" style="display: inline;"><button>Remove</button></form>
+                    </li>
+                    <li>
+                        Jane Smith
+                        <form method="POST" action="/tasks/remove-member/2" style="display: inline;"><button>Remove</button></form>
+                    </li>
+                </ul>
+                <div class="add-item">
+                    <a href="/tasks/add-member">Add Member</a>
+                </div>
+            </div>
+
+            <div class="related-elements">
+                <h2>Related Elements</h2>
+                <ul>
+                    <li>
+                        Configuration Item 1
+                        <form method="POST" action="/tasks/remove-element/1" style="display: inline;"><button>Remove</button></form>
+                    </li>
+                    <li>
+                        Configuration Item 2
+                        <form method="POST" action="/tasks/remove-element/2" style="display: inline;"><button>Remove</button></form>
+                    </li>
+                </ul>
+                <div class="add-item">
+                    <a href="/tasks/add-element">Add Element</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
