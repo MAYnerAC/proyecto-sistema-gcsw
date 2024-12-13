@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ProyectoSistemaGCSW.Models.Actividad>
+
+@{
+    ViewBag.Title = "Actividades";
+}
+
+<h2>Actividades</h2>
+
+<p>
+    @Html.ActionLink("Crear Nueva Actividad", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Proyecto</th>
+            <th>Actividad</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Proyecto.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.nombre_actividad)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_inicio)</td>
+                <td>@Html.DisplayFor(modelItem => item.fecha_fin)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_actividad }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_actividad }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_actividad }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

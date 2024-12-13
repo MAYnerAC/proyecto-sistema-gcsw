@@ -1,0 +1,74 @@
+﻿@model ProyectoSistemaGCSW.Models.Elemento_Configuracion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Elemento_Configuracion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fase.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fase.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyecto.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigo_elemento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigo_elemento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nomenclatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomenclatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url_recurso_asociado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url_recurso_asociado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_elemento_configuracion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
